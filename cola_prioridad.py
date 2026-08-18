@@ -18,6 +18,13 @@ class ColaPrioridad:
         self.tickets.remove(siguiente)
         return siguiente
 
+    def ver_cola(self):
+        cola_Ordenada = sorted(
+            self.tickets,
+            key=lambda t: (self.prioridades[t.prioridad], t.hora_llegada),
+        )
+        return cola_Ordenada
+
 
 if __name__ == "__main__":
     cola = ColaPrioridad()
@@ -27,3 +34,7 @@ if __name__ == "__main__":
     cola.agregar_ticket(Ticket(4, "Duda de facturación", "baja", "internet", "09:15"))
     siguiente = cola.atender_siguiente()
     print(f"Atender: Ticket {siguiente.identificador} - {siguiente.descripcion}")
+
+    print("\nCola completa ordenada:")
+    for t in cola.ver_cola():
+        print(f"  [{t.identificador}] {t.prioridad} - {t.descripcion}")
