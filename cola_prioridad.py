@@ -10,6 +10,8 @@ class ColaPrioridad:
         self.tickets.append(ticket)
 
     def atender_siguiente(self):
+        if not self.tickets:
+            raise ValueError("La cola esta vacía")
         siguiente = min(
             self.tickets, key=lambda t: (self.prioridades[t.prioridad], t.hora_llegada)
         )
@@ -23,6 +25,5 @@ if __name__ == "__main__":
     cola.agregar_ticket(Ticket(2, "Servidor caído", "alta", "telefono", "09:05"))
     cola.agregar_ticket(Ticket(3, "No conecta VPN", "alta", "presencial", "09:10"))
     cola.agregar_ticket(Ticket(4, "Duda de facturación", "baja", "internet", "09:15"))
-
     siguiente = cola.atender_siguiente()
     print(f"Atender: Ticket {siguiente.identificador} - {siguiente.descripcion}")
