@@ -5,9 +5,18 @@ class ColaPrioridad:
     def __init__(self):
         self.tickets = []
         self.prioridades = {"alta": 1, "media": 2, "baja": 3}
+        self.siguiente_id = 1
 
-    def agregar_ticket(self, ticket):
+    def agregar_ticket(self, descripcion, prioridad, canal, hora_llegada):
+        ticket = Ticket(
+            self.siguiente_id,
+            descripcion,
+            prioridad.lower().strip(),
+            canal.lower().strip(),
+            hora_llegada,
+        )
         self.tickets.append(ticket)
+        self.siguiente_id += 1
 
     def atender_siguiente(self):
         if not self.tickets:
@@ -28,10 +37,11 @@ class ColaPrioridad:
 
 if __name__ == "__main__":
     cola = ColaPrioridad()
-    cola.agregar_ticket(Ticket(1, "Problema con correo", "media", "internet", "09:00"))
-    cola.agregar_ticket(Ticket(2, "Servidor caído", "alta", "telefono", "09:05"))
-    cola.agregar_ticket(Ticket(3, "No conecta VPN", "alta", "presencial", "09:10"))
-    cola.agregar_ticket(Ticket(4, "Duda de facturación", "baja", "internet", "09:15"))
+    cola.agregar_ticket("Problema con correo", "media", "internet", "09:00")
+    cola.agregar_ticket("Servidor caído", "alta", "telefono", "09:05")
+    cola.agregar_ticket("No conecta VPN", "alta", "presencial", "09:10")
+    cola.agregar_ticket("Duda de facturación", "baja", "internet", "09:15")
+
     siguiente = cola.atender_siguiente()
     print(f"Atender: Ticket {siguiente.identificador} - {siguiente.descripcion}")
 
