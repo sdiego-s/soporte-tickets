@@ -13,6 +13,9 @@ def main():
             break
         elif comando == "agregar":
             desc = input("Descripición del problema: ")
+            if desc.strip() == "":
+                print("La descripción no puede estar vacía")
+                continue
             prioridad = input("Prioridad (alta/media/baja): ")
             if prioridad.lower().strip() not in ["alta", "media", "baja"]:
                 print("Error: la prioridad debe ser alta, media o baja")
