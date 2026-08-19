@@ -21,6 +21,9 @@ def main():
                 print("Error: la prioridad debe ser alta, media o baja")
                 continue
             canal = input("Canal (presencial/telefono/internet): ")
+            if canal.lower().strip() not in ["presencial", "telefono", "internet"]:
+                print("Error: el canal debe ser presencial, telefono o internet")
+                continue
             hora = datetime.now().strftime("%H:%M")
             cola.agregar_ticket(desc, prioridad, canal, hora)
             print("Ticket agregado")
